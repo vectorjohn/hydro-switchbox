@@ -1,24 +1,12 @@
+#define DEBUG
 
-#define MILLIS 1000L
-#define time_to_milli(h,m) ((unsigned long)(h*60 + m)*60*MILLIS)
-#define LIGHTPIN 0
-#define SCHED_SENTINEL {(unsigned long)-1, -1, -1}
-#define is_sentinel(x) (x.time == (unsigned long)-1)
-#define ONEDAY (MILLIS * 60 * 60 * 24)
-#define ONEWEEK (ONEDAY * 7)
-#define safe_millis(x) (milli_offset + x)
-
-typedef Event struct {
-    unsigned long time;
-    int pin;
-    int value;
-}
+#include "schedule.h"
 
 //this is what time it is when the chip turns on
-unsigned long start_clock[2] = {12, 0};
+unsigned long start_clock[2] = {0, 0};
 
 int next_event_idx = -1;
-unsigned long int next_event_millis = 0;
+unsigned long next_event_millis = 0;
 int day = 0;
 unsigned long next_day_millis = ONEDAY;
 unsigned long milli_offset = 0;
@@ -26,8 +14,16 @@ unsigned long milli_offset = 0;
 //DO keep these sorted.  Otherwise nothing good will happen.
 Event schedule[] = {
     //{time_to_milli(6, 0), 0, LOW},
-    {time_to_milli(18, 0), LIGHTPIN, HIGH},
-    {time_to_milli(23, 0), LIGHTPIN, LOW},
+    //{time_to_milli(18, 0), LIGHTPIN, HIGH},
+    //{time_to_milli(23, 0), LIGHTPIN, LOW},
+    
+    {time_to_milli(0, 0), LIGHTPIN, LOW},
+    {time_to_milli(1, 0), LIGHTPIN, HIGH},
+    {time_to_milli(2, 0), LIGHTPIN, LOW},
+    {time_to_milli(3, 0), LIGHTPIN, HIGH},
+    {time_to_milli(10, 0), LIGHTPIN, LOW},
+    {time_to_milli(15, 0), LIGHTPIN, HIGH},
+    
     SCHED_SENTINEL
 };
 
@@ -41,25 +37,37 @@ void setup() {
     digitalWrite( 2, HIGH );
     digitalWrite( 3, HIGH );
 
-    unsigned int start_off = millis() + time_to_milli(start_clock[0], start_clock[1]);
+    unsigned long start_off = millis() + time_to_milli(start_clock[0], start_clock[1]);
     readyNextEvent();
 
     //skip events until the next one is in the future.
     while ( start_off > next_event_millis )
         readyNextEvent();
+    
+    //start the event that should be currently running
+    runPreviousEvent( next_event_idx );
 }
 
 void loop() {
-    unsigned now = safe_millis( millis() );
-    if ( now > next_event_millis ) {
-        digitalWrite( schedule[ next_event_idx ].pin, schedule[ next_event_idx ].value );
-        readyNextEvent();
-    }
-
+    unsigned long now = safe_millis( millis() );
+    
     if ( now > next_day_millis ) {
         day++;
         next_day_millis += ONEDAY;
     }
+    
+    if ( now > next_event_millis ) {
+        digitalWrite( schedule[ next_event_idx ].pin, schedule[ next_event_idx ].value );
+        readyNextEvent();
+    }
+}
+
+// run the event before idx, wrapping if needed.
+void runPreviousEvent( int idx ) {
+  if ( idx == 0 )
+    idx = numEvents( &schedule[0] ) - 1;
+    
+   digitalWrite( schedule[ idx ].pin, schedule[ idx ].value );    
 }
 
 void readyNextEvent() {
@@ -71,11 +79,22 @@ void readyNextEvent() {
     }
 
     unsigned long prev = next_event_millis;
-    next_event_millis = ONEDAY*event_day + schedule[ nxt_event_idx ].time;
+    next_event_millis = ONEDAY*event_day + schedule[ next_event_idx ].time;
 
     if ( prev > next_event_millis ) {
         //overflow
-        milli_offset = next_event_millis + (((unsigned long)-1) - prev);
-        next_event_millis += milli_offset;
+        //milli_offset = next_event_millis + (((unsigned long)-1) - prev);
+        //next_event_millis += milli_offset;
+        blinkN( 2, 10 );
     }
 }
+
+void blinkN( int pin, int n ) {
+  while ( n > 0 ) {
+    digitalWrite( pin, LOW );
+    delay( 100 );
+    digitalWrite( pin, HIGH );
+    delay( 300 );
+  }
+}
+
