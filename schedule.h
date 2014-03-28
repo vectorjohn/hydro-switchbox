@@ -9,6 +9,7 @@
 #endif
 
 #define LIGHTPIN 0
+#define FANPIN 1
 #define SCHED_SENTINEL {(unsigned long)-1, -1, -1}
 #define is_sentinel(x) (x.time == (unsigned long)-1)
 #define ONEWEEK (ONEDAY * 7)
