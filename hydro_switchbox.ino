@@ -45,6 +45,8 @@ void setup() {
     digitalWrite( 2, HIGH );
     //digitalWrite( 3, HIGH );
 
+    start_time = dayOffsetFromString( __TIME__ );
+
     //unsigned long start_off = millis() + start_time;
     milli_offset = start_time;
     readyNextEvent();
