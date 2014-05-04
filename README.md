@@ -9,3 +9,4 @@ TODO
 ----
 * Use EEPROM to store the current time to improve power loss until I have an RTC. Assume when power comes back the time is whatever was in EEPROM.
 * when starting up, currently it looks for whatever event last fired and starts it. What it actually needs to do is set the state of all the pins.
+* I haven't tested the timer overflow handling. The number of milliseconds since startup will overflow if it runs for a few months but it shouldn't be too hard to detect.
