@@ -24,14 +24,16 @@ Event schedule[] = {
     
     //{time_to_milli(18, 0), LIGHTPIN, HIGH},
     {time_to_milli(23, 0), LIGHTPIN, HIGH},
-    
+
+
+    //TEST SCHEDULE
     //{time_to_milli(0, 0), LIGHTPIN, LOW},
     //{time_to_milli(3, 0), LIGHTPIN, HIGH},
     //{time_to_milli(4, 0), LIGHTPIN, LOW},
     //{time_to_milli(5, 0), LIGHTPIN, HIGH},
     //{time_to_milli(10, 0), LIGHTPIN, LOW},
     //{time_to_milli(15, 0), LIGHTPIN, HIGH},
-    
+
     SCHED_SENTINEL
 };
 
@@ -54,33 +56,47 @@ void setup() {
     //skip events until the next one is in the future.
     while ( milli_offset > next_event_millis )
         readyNextEvent();
-    
+
     //start the event that should be currently running
-    runPreviousEvent( next_event_idx );
+    startCurrentEvents( next_event_idx );
 }
 
 void loop() {
     unsigned long now = safe_millis( millis() );
-    
+
     if ( now > next_day_millis ) {
         day++;
         next_day_millis += ONEDAY;
     }
-    
+
     if ( now > next_event_millis ) {
         digitalWrite( schedule[ next_event_idx ].pin, schedule[ next_event_idx ].value );
         readyNextEvent();
     }
 }
 
-// run the event before idx, wrapping if needed.
-void runPreviousEvent( int idx ) {
-  if ( idx == 0 )
-    idx = numEvents( &schedule[0] ) - 1;
-  else
-    idx--;
-    
-   digitalWrite( schedule[ idx ].pin, schedule[ idx ].value );    
+//run the events for each pin that should be running if the next event is idx
+void startCurrentEvents( int idx ) {
+    int pins[4] = {-1, -1, -1, -1};
+
+    int i, started = 0;
+    for ( i = idx; i != idx || !started; i++ )
+    {
+        started = true;
+        if ( is_sentinel( schedule[ i ] ) )
+        {
+            i = -1;
+            continue;
+        }
+
+        pins[ schedule[i].pin ] = schedule[i].value;
+    }
+
+    for ( i = 0; i < 4; i++ )
+    {
+        if ( pins[i] > -1 )
+            digitalWrite( i, pins[i] );
+    }
 }
 
 void readyNextEvent() {
@@ -104,12 +120,12 @@ void readyNextEvent() {
 }
 
 void blinkN( int pin, int n ) {
-  while ( n > 0 ) {
-    digitalWrite( pin, LOW );
-    delay( 100 );
-    digitalWrite( pin, HIGH );
-    delay( 300 );
-    n--;
-  }
+    while ( n > 0 ) {
+        digitalWrite( pin, LOW );
+        delay( 100 );
+        digitalWrite( pin, HIGH );
+        delay( 300 );
+        n--;
+    }
 }
 
