@@ -5,6 +5,7 @@
   #define ONEMINUTE (ONESECOND * 60)
   #define ONEHOUR (ONEMINUTE * 60)
   #define ONEDAY (24000L)
+  #define TIME_SAVE_INTERVAL 5000L
 #else
   #define MILLIS 1000L
   #define time_to_milli(h,m) ((unsigned long)(h*60 + m)*60*MILLIS)
@@ -12,6 +13,7 @@
   #define ONEMINUTE (ONESECOND * 60)
   #define ONEHOUR (ONEMINUTE * 60)
   #define ONEDAY (ONEHOUR * 24)
+  #define TIME_SAVE_INTERVAL 60000L
 #endif
 
 #define LIGHTPIN 0

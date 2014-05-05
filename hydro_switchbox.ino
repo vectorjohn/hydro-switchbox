@@ -1,6 +1,7 @@
 //#define DEBUG
 
 #include "schedule.h"
+#include "timestamp.h"
 
 //this is what time it is when the chip turns on
 unsigned long start_time = time_to_milli( 20, 27 );
@@ -72,6 +73,11 @@ void loop() {
     if ( now > next_event_millis ) {
         digitalWrite( schedule[ next_event_idx ].pin, schedule[ next_event_idx ].value );
         readyNextEvent();
+    }
+
+    if ( 0 == ( now % TIME_SAVE_INTERVAL ) )
+    {
+        updateTimestamp( now );
     }
 }
 
