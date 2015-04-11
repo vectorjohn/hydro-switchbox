@@ -15,14 +15,23 @@ unsigned long milli_offset = 0;
 //DO keep these sorted.  Otherwise nothing good will happen.
 Event schedule[] = {
     {time_to_milli(6, 0), LIGHTPIN, LOW},
-    
-  
+
+    {time_to_milli(6, 10), PUMPPIN, LOW},
+    {time_to_milli(6, 40), PUMPPIN, HIGH},
+
+
     {time_to_milli(10, 0), FANPIN, LOW},
     {time_to_milli(14, 0), FANPIN, HIGH},
 
-    {time_to_milli(16, 0), FANPIN, LOW},    
+    {time_to_milli(14, 10), PUMPPIN, LOW},
+    {time_to_milli(14, 40), PUMPPIN, HIGH},
+
+    {time_to_milli(16, 0), FANPIN, LOW},
     {time_to_milli(19, 0), FANPIN, HIGH},
-    
+
+    {time_to_milli(19, 10), PUMPPIN, LOW},
+    {time_to_milli(19, 40), PUMPPIN, HIGH},
+
     //{time_to_milli(18, 0), LIGHTPIN, HIGH},
     {time_to_milli(23, 0), LIGHTPIN, HIGH},
 
@@ -38,7 +47,7 @@ Event schedule[] = {
     SCHED_SENTINEL
 };
 
-void setup() {                
+void setup() {
     pinMode(0, OUTPUT);
     pinMode(1, OUTPUT);
     pinMode(2, OUTPUT);
@@ -83,7 +92,7 @@ void loop() {
 
 //run the events for each pin that should be running if the next event is idx
 void startCurrentEvents( int idx ) {
-    int pins[4] = {-1, -1, -1, -1};
+    int pins[4] = {HIGH, HIGH, HIGH, HIGH};
 
     int i, started = 0;
     for ( i = idx; i != idx || !started; i++ )
