@@ -9,6 +9,7 @@
 #else
   #define MILLIS 1000L
   #define time_to_milli(h,m) ((unsigned long)(h*60 + m)*60*MILLIS)
+  #define duration_to_event(h,m,duration,pin) {time_to_milli(h,m), pin, LOW}, {time_to_milli(h,m)+duration, pin, HIGH}
   #define ONESECOND 1000L
   #define ONEMINUTE (ONESECOND * 60)
   #define ONEHOUR (ONEMINUTE * 60)

@@ -16,25 +16,23 @@ unsigned long milli_offset = 0;
 Event schedule[] = {
     {time_to_milli(6, 0), LIGHTPIN, LOW},
 
-    {time_to_milli(6, 10), PUMPPIN, LOW},
-    {time_to_milli(6, 40), PUMPPIN, HIGH},
+    duration_to_event(6, 10, 10 * ONEMINUTE, PUMPPIN),
+    duration_to_event(9, 10, 10 * ONEMINUTE, PUMPPIN),
+
+    duration_to_event(10, 0, 4 * ONEHOUR, FANPIN),
 
 
-    {time_to_milli(10, 0), FANPIN, LOW},
-    {time_to_milli(14, 0), FANPIN, HIGH},
+    duration_to_event(12, 10, 10 * ONEMINUTE, PUMPPIN),
+    duration_to_event(13, 45, 5 * ONEMINUTE, PUMPPIN),
+    duration_to_event(15, 10, 10 * ONEMINUTE, PUMPPIN),
 
-    {time_to_milli(14, 10), PUMPPIN, LOW},
-    {time_to_milli(14, 40), PUMPPIN, HIGH},
+    duration_to_event(16, 0, 3 * ONEHOUR, FANPIN),
 
-    {time_to_milli(16, 0), FANPIN, LOW},
-    {time_to_milli(19, 0), FANPIN, HIGH},
-
-    {time_to_milli(19, 10), PUMPPIN, LOW},
-    {time_to_milli(19, 40), PUMPPIN, HIGH},
+    duration_to_event(18, 10, 10 * ONEMINUTE, PUMPPIN),
+    duration_to_event(21, 10, 10 * ONEMINUTE, PUMPPIN),
 
     //{time_to_milli(18, 0), LIGHTPIN, HIGH},
     {time_to_milli(23, 0), LIGHTPIN, HIGH},
-
 
     //TEST SCHEDULE
     //{time_to_milli(0, 0), LIGHTPIN, LOW},
