@@ -14,33 +14,17 @@ unsigned long milli_offset = 0;
 
 //DO keep these sorted.  Otherwise nothing good will happen.
 Event schedule[] = {
-    {time_to_milli(6, 0), LIGHTPIN, LOW},
-
-    duration_to_event(6, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(9, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    duration_to_event(10, 0, 4 * ONEHOUR, FANPIN),
-
-
-    duration_to_event(12, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(13, 45, 5 * ONEMINUTE, PUMPPIN),
-    duration_to_event(15, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    duration_to_event(16, 0, 3 * ONEHOUR, FANPIN),
-
-    duration_to_event(18, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(21, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    //{time_to_milli(18, 0), LIGHTPIN, HIGH},
-    {time_to_milli(23, 0), LIGHTPIN, HIGH},
-
-    //TEST SCHEDULE
-    //{time_to_milli(0, 0), LIGHTPIN, LOW},
-    //{time_to_milli(3, 0), LIGHTPIN, HIGH},
-    //{time_to_milli(4, 0), LIGHTPIN, LOW},
-    //{time_to_milli(5, 0), LIGHTPIN, HIGH},
-    //{time_to_milli(10, 0), LIGHTPIN, LOW},
-    //{time_to_milli(15, 0), LIGHTPIN, HIGH},
+    duration_to_event(1, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(4, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(7, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(9, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(11, 0, 15 * ONEMINUTE, 0),
+    duration_to_event(13, 0, 15 * ONEMINUTE, 0),
+    duration_to_event(15, 0, 15 * ONEMINUTE, 0),
+    duration_to_event(17, 0, 15 * ONEMINUTE, 0),
+    duration_to_event(19, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(21, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(23, 0, 5 * ONEMINUTE, 0),
 
     SCHED_SENTINEL
 };
