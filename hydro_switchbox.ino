@@ -17,14 +17,12 @@ Event schedule[] = {
     duration_to_event(1, 0, 5 * ONEMINUTE, 0),
     duration_to_event(4, 0, 5 * ONEMINUTE, 0),
     duration_to_event(7, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(9, 0, 10 * ONEMINUTE, 0),
-    duration_to_event(11, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(13, 0, 15 * ONEMINUTE, 0),
+    duration_to_event(10, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(13, 0, 10 * ONEMINUTE, 0),
     duration_to_event(15, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(17, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(19, 0, 10 * ONEMINUTE, 0),
-    duration_to_event(21, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(23, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(17, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(19, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(22, 0, 5 * ONEMINUTE, 0),
 
     SCHED_SENTINEL
 };
