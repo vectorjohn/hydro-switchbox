@@ -12,7 +12,6 @@ int day = 0;
 unsigned long next_day_millis = ONEDAY;
 unsigned long milli_offset = 0;
 
-//DO keep these sorted.  Otherwise nothing good will happen.
 Event schedule[] = {
     duration_to_event(1, 0, 5 * ONEMINUTE, 0),
     duration_to_event(4, 0, 5 * ONEMINUTE, 0),
@@ -37,6 +36,7 @@ void setup() {
     digitalWrite( 2, HIGH );
     //digitalWrite( 3, HIGH );
 
+    sortSchedule(&schedule[0]);
     start_time = dayOffsetFromString( __TIME__ );
 
     //unsigned long start_off = millis() + start_time;
