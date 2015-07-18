@@ -43,3 +43,43 @@ unsigned long dayOffsetFromString( char* ts ) {
         + 10L * ONEMINUTE * (ts[3] - '0') + ONEMINUTE * (ts[4] - '0')
         + 10L * ONESECOND * (ts[6] - '0') + ONESECOND * (ts[7] - '0');
 }
+
+#define swapEvents(a, b, tmp) tmp = a; a = b; b = tmp;
+#define eventBefore(a, b)  (a.time < b.time)
+
+int _partitionSchedule(Event *sched, int lo, int hi) {
+
+  int pivotIndex = lo;
+  Event pivotValue = sched[pivotIndex];
+  Event tmp;
+
+  swapEvents(sched[pivotIndex], sched[hi], tmp);
+  int storeIndex = lo;
+
+  int i;
+  for (i = lo; i < hi; i++) {
+    if (eventBefore(sched[i], pivotValue)) {
+      swapEvents(sched[i], sched[storeIndex], tmp);
+      storeIndex++;
+    }
+  }
+
+  swapEvents(sched[storeIndex], sched[hi], tmp);
+  return storeIndex;
+}
+
+void _sortSchedule(Event *sched, int lo, int hi) {
+  if (lo < hi) {
+    int p = _partitionSchedule(sched, lo, hi);
+    _sortSchedule(sched, lo, p - 1);
+    _sortSchedule(sched, p + 1, hi);
+  }
+}
+
+void sortSchedule(Event *sched) {
+  int hi = 0;
+  while (!is_sentinel(sched[hi]))
+    hi++;
+
+  _sortSchedule(sched, 0, hi-1);
+}
