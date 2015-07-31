@@ -14,15 +14,18 @@ unsigned long milli_offset = 0;
 
 Event schedule[] = {
     duration_to_event(1, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(4, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(7, 0, 5 * ONEMINUTE, 0),
+    //long early morning runs should help cool the nutrients
+    duration_to_event(4, 0, 60 * ONEMINUTE, 0),
+    duration_to_event(6, 0, 30 * ONEMINUTE, 0),
+    duration_to_event(7, 0, 30 * ONEMINUTE, 0),
     duration_to_event(10, 0, 20 * ONEMINUTE, 0),
     duration_to_event(13, 0, 10 * ONEMINUTE, 0),
     duration_to_event(15, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(16, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(16, 0, 20 * ONEMINUTE, 0),
     duration_to_event(17, 0, 10 * ONEMINUTE, 0),
+    duration_to_event(18, 0, 5 * ONEMINUTE, 0),
     duration_to_event(19, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(22, 0, 5 * ONEMINUTE, 0),
+    duration_to_event(22, 0, 15 * ONEMINUTE, 0),
 
     SCHED_SENTINEL
 };
