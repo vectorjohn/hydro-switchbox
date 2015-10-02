@@ -16,6 +16,10 @@ unsigned long milli_offset = 0;
 #define BRUSSELS_PIN 1
 
 Event schedule[] = {
+    //always on, for testing, etc.
+    {time_to_milli(0,0), 2, LOW},
+    {time_to_milli(0,0), 3, LOW},
+
     //Tomatoes
     ///////////////
     duration_to_event(1, 0, 5 * ONEMINUTE, TOMATO_PIN),
@@ -58,7 +62,7 @@ void setup() {
     digitalWrite( 0, HIGH );
     digitalWrite( 1, HIGH );
     //digitalWrite( 2, HIGH );
-    digitalWrite( 3, LOW ); //Always on
+    digitalWrite( 3, HIGH );
 
     sortSchedule(&schedule[0]);
     start_time = dayOffsetFromString( __TIME__ );
