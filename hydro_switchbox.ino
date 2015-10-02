@@ -12,21 +12,40 @@ int day = 0;
 unsigned long next_day_millis = ONEDAY;
 unsigned long milli_offset = 0;
 
+#define TOMATO_PIN 0
+#define BRUSSELS_PIN 1
+
 Event schedule[] = {
-    duration_to_event(1, 0, 5 * ONEMINUTE, 0),
-    duration_to_event(3, 0, 5 * ONEMINUTE, 0),
+    //Tomatoes
+    ///////////////
+    duration_to_event(1, 0, 5 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(4, 0, 5 * ONEMINUTE, TOMATO_PIN),
     //long early morning runs should help cool the nutrients
-    duration_to_event(4, 0, 60 * ONEMINUTE, 0),
-    duration_to_event(6, 0, 30 * ONEMINUTE, 0),
-    duration_to_event(7, 0, 30 * ONEMINUTE, 0),
-    duration_to_event(10, 0, 20 * ONEMINUTE, 0),
-    duration_to_event(13, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(15, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(16, 0, 20 * ONEMINUTE, 0),
-    duration_to_event(17, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(18, 0, 15 * ONEMINUTE, 0),
-    duration_to_event(19, 0, 10 * ONEMINUTE, 0),
-    duration_to_event(22, 0, 15 * ONEMINUTE, 0),
+    //but cold weather tho
+    //duration_to_event(4, 0, 60 * ONEMINUTE, TOMATO_PIN),
+    //duration_to_event(6, 0, 30 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(7, 0, 5 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(10, 0, 10 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(13, 0, 10 * ONEMINUTE, TOMATO_PIN),
+    //duration_to_event(15, 0, 15 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(16, 0, 15 * ONEMINUTE, TOMATO_PIN),
+    //duration_to_event(17, 0, 15 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(18, 0, 10 * ONEMINUTE, TOMATO_PIN),
+    //duration_to_event(19, 0, 10 * ONEMINUTE, TOMATO_PIN),
+    duration_to_event(21, 0, 5 * ONEMINUTE, TOMATO_PIN),
+
+
+    //Brussels Sprouts
+    //////////////////////
+    duration_to_event(2, 0, 5 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(7, 0, 5 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(9, 0, 5 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(11, 0, 8 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(13, 0, 10 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(15, 0, 8 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(17, 0, 5 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(19, 30, 5 * ONEMINUTE, BRUSSELS_PIN),
+    duration_to_event(21, 30, 5 * ONEMINUTE, BRUSSELS_PIN),
 
     SCHED_SENTINEL
 };
@@ -34,12 +53,12 @@ Event schedule[] = {
 void setup() {
     pinMode(0, OUTPUT);
     pinMode(1, OUTPUT);
-    pinMode(2, OUTPUT);
-    //pinMode(3, OUTPUT);
+    //pinMode(2, OUTPUT);
+    pinMode(3, OUTPUT);
     digitalWrite( 0, HIGH );
     digitalWrite( 1, HIGH );
-    digitalWrite( 2, HIGH );
-    //digitalWrite( 3, HIGH );
+    //digitalWrite( 2, HIGH );
+    digitalWrite( 3, LOW ); //Always on
 
     sortSchedule(&schedule[0]);
     start_time = dayOffsetFromString( __TIME__ );
