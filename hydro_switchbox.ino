@@ -14,8 +14,8 @@ unsigned long milli_offset = 0;
 
 Event schedule[] = {
     //lights
-    {time_to_milli(7, 0), LIGHTPIN, LOW},
-    {time_to_milli(19, 0), LIGHTPIN, HIGH},
+    {time_to_milli(9, 0), LIGHTPIN, LOW},
+    {time_to_milli(21, 0), LIGHTPIN, HIGH},
 
 
     duration_to_event(8, 0, 3 * ONEHOUR, FANPIN),
