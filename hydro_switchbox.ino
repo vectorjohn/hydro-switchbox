@@ -15,8 +15,9 @@ unsigned long milli_offset = 0;
 Event schedule[] = {
     {time_to_milli(0, 0), PLUG3, LOW},
 
-    duration_to_event(7, 15, 5 * ONEMINUTE, PLUG0),
-    duration_to_event(20, 0, 5 * ONEMINUTE, PLUG0),
+    duration_to_event(7, 5, 1 * ONEMINUTE, PLUG0),
+    duration_to_event(7, 15, 1 * ONEMINUTE, PLUG0),
+    duration_to_event(7, 30, 2 * ONEMINUTE, PLUG0),
 
     //TEST SCHEDULE
     //{time_to_milli(0, 0), LIGHTPIN, LOW},
