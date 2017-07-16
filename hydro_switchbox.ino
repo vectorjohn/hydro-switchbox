@@ -13,25 +13,10 @@ unsigned long next_day_millis = ONEDAY;
 unsigned long milli_offset = 0;
 
 Event schedule[] = {
-    {time_to_milli(6, 0), LIGHTPIN, LOW},
+    {time_to_milli(0, 0), PLUG3, LOW},
 
-    duration_to_event(6, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(9, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    duration_to_event(10, 0, 4 * ONEHOUR, FANPIN),
-
-
-    duration_to_event(12, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(13, 45, 5 * ONEMINUTE, PUMPPIN),
-    duration_to_event(15, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    duration_to_event(16, 0, 3 * ONEHOUR, FANPIN),
-
-    duration_to_event(18, 10, 10 * ONEMINUTE, PUMPPIN),
-    duration_to_event(21, 10, 10 * ONEMINUTE, PUMPPIN),
-
-    //{time_to_milli(18, 0), LIGHTPIN, HIGH},
-    {time_to_milli(23, 0), LIGHTPIN, HIGH},
+    duration_to_event(7, 15, 5 * ONEMINUTE, PLUG0),
+    duration_to_event(20, 0, 5 * ONEMINUTE, PLUG0),
 
     //TEST SCHEDULE
     //{time_to_milli(0, 0), LIGHTPIN, LOW},
@@ -48,11 +33,11 @@ void setup() {
     pinMode(0, OUTPUT);
     pinMode(1, OUTPUT);
     pinMode(2, OUTPUT);
-    //pinMode(3, OUTPUT);
+    pinMode(3, OUTPUT);
     digitalWrite( 0, HIGH );
     digitalWrite( 1, HIGH );
     digitalWrite( 2, HIGH );
-    //digitalWrite( 3, HIGH );
+    digitalWrite( 3, LOW );
 
     sortSchedule(&schedule[0]);
     start_time = dayOffsetFromString( __TIME__ );

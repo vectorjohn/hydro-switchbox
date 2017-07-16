@@ -17,9 +17,10 @@
   #define TIME_SAVE_INTERVAL 60000L
 #endif
 
-#define LIGHTPIN 0
-#define FANPIN 1
-#define PUMPPIN 2
+#define PLUG0 0
+#define PLUG1 1
+#define PLUG2 2
+#define PLUG3 3
 #define SCHED_SENTINEL {(unsigned long)-1, -1, -1}
 #define is_sentinel(x) (x.time == (unsigned long)-1)
 #define ONEWEEK (ONEDAY * 7)
